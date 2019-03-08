@@ -161,7 +161,9 @@ from emp where (DEPTNO=10 and JOB='MANAGER')or(DEPTNO=20 and JOB='CLERK');
 # 6. 找出 10 部门的经理、20 部门的职员或者既不是经理也不是职员但是高于 2000 元的员工信息
 select *
 from emp where (DEPTNO=10 and JOB='MANAGER')OR (DEPTNO=20 AND JOB='CLERK')OR (JOB NOT IN ('MANAGER','CLERK')AND SAL>2000);
-
+-- 一下是查找工资从2000到3000的 between and 的写法
+#select *
+#from emp where SAL between 2000 and 3000;
 # 7. 找出获得奖金的员工的工作
 select DISTINCT JOB
 from emp where COMM is not null;
@@ -173,16 +175,31 @@ from emp where (COMM<100)or (COMM is null);
 
 # 9. 查找员工雇佣日期是当月的最后一天的员工信息
 # 10. 检索出雇佣年限超过 35 年的员工信息
+
 # 11. 找出姓名以 A、B、S 开始的员工信息
 select *
 from emp
 where ENAME like 'A%'or ENAME like 'B%'or ENAME like 's%';
 # 12. 找到名字长度为 4 个字符的员工信息
+select *
+from emp
+where ENAME like '____';
 # 13. 名字中不包含 R 字符的员工信息
+select *
+from emp
+where ENAME not like '%R%';
 # 14. 找出员工名字的前3个字符
+select ENAME
+from emp;
 # 15. 将名字中 A 改为 a
+  update emp
+           set ENAME='a'where ENAME='A';
+select *
+from emp;
 # 16. 将员工的雇佣日期拖后 10 年
 # 17. 返回员工的详细信息并按姓名排序
+
+
 
 
 # 18. 返回员工的信息并按员工的工作年限降序排列
@@ -200,3 +217,22 @@ select *
 from emp
 where ENAME like 'A%';
 # 25. 计算出员工被雇佣了多少年、多少月、多少日
+#26.查出并计算员工基本工资加奖金 一共收入
+select ENAME,SAL+ifnull(COMM,0)
+from emp;
+
+#显示由键链接的员工和职位的两个表
+select e.ENAME, e.DEPTNO, d.DNAME, d.DEPTNO
+from emp e
+       inner join dept d on e.DEPTNO = d.DEPTNO;
+-- 以上落选的表中信息显示   将inner改为right 或left （对于关键字右边或左边的文件落选的信息显示）
+select e.ENAME, e.DEPTNO, d.DNAME, d.DEPTNO
+from emp e
+       right join dept d on e.DEPTNO = d.DEPTNO
+union
+
+select e.ENAME, e.DEPTNO, d.DNAME, d.DEPTNO
+from emp e
+       left join dept d on e.DEPTNO = d.DEPTNO;
+--  以上显示的是将两个表中落选的信息都显示出来 其中用 union 链接。
+
