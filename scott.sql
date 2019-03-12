@@ -236,3 +236,13 @@ from emp e
        left join dept d on e.DEPTNO = d.DEPTNO;
 --  以上显示的是将两个表中落选的信息都显示出来 其中用 union 链接。
 
+create or replace view scott.v_name
+as
+  select e.EMPNO,e.ENAME,e.DNAME
+from scott.emp e
+inner join scott.dept d
+on e.DEPTNO = d.DEPTNO;
+
+select *
+from scott.v_name
+where ENAME='allen';

@@ -20,3 +20,4 @@ from db_ip.ip;
 
 update db_ip.ip
 set min=trim(min),max=trim(max),loc=trim(loc);
+
